@@ -1,34 +1,28 @@
-import 'package:flutter/material.dart';
+enum token {
+  x,
+  o
+}
 
-List<List<Icon>> board = [
+List<List<token>> board = [
   [null, null, null],
   [null, null, null],
   [null, null, null]
 ];
 
 // initial list of colors assigned to boxes on board
-List<List<Color>> colorBoard = [
-  [Colors.white24, Colors.white24, Colors.white24],
-  [Colors.white24, Colors.white24, Colors.white24],
-  [Colors.white24, Colors.white24, Colors.white24]
+List<List<bool>> colorBoard = [
+  [false, false, false],
+  [false, false, false],
+  [false, false, false]
 ];
 
 //  takes an icon, checks if
-bool legitMove(Icon icon) {
-  return icon == null && !winnerCheck(board);
+bool legitMove(token t) {
+  return t == null && !winnerCheck(board);
 }
 
 //default parameters
 String currentPlayer = 'Player X Move'; //X will always be player 1
-Icon xIcon = Icon(
-  Icons.close,
-  size: 70,
-);
-Icon oIcon = Icon(
-  Icons.radio_button_unchecked,
-  size: 70,
-);
-Icon playerIcon;
 
 //function to change player based on currentPlayer value which is a string,
 changePlayer(String x) {
@@ -39,7 +33,7 @@ changePlayer(String x) {
   }
 }
 
-Color winningColor = Colors.yellow.withOpacity(0.2);
+//Color winningColor = Colors.yellow.withOpacity(0.2);
 void gameReset() {
   board = [
     [null, null, null],
@@ -47,78 +41,89 @@ void gameReset() {
     [null, null, null]
   ];
   colorBoard = [
-    [Colors.white24, Colors.white24, Colors.white24],
-    [Colors.white24, Colors.white24, Colors.white24],
-    [Colors.white24, Colors.white24, Colors.white24]
+    [false, false, false],
+    [false, false, false],
+    [false, false, false]
   ];
   currentPlayer = 'Player X Move';
 }
 
-bool fullBoard(List<List<Icon>> board) {
-  bool full = false;
+bool fullBoard(List<List<token>> board) {
   for (int i = 0; i < 3; i++) {
     for (int j = 0; j < 3; j++) {
-      if (board[i][j] == xIcon)
-        full = true;
-      else if (board[i][j] == oIcon)
-        full = true;
-      else
-        full = false;
+      if (board[i][j] == null) {
+        return false;
+      }
     }
   }
-  return full;
+  return true;
 }
 
-bool winnerCheck(List<List<Icon>> board) {
+bool winnerCheck(List<List<token>> board) {
   for (int i = 0; i < 3; i++) {
-    if (board[i][0] == xIcon && board[i][1] == xIcon && board[i][2] == xIcon) {
-      colorBoard[i][0] = winningColor;
-      colorBoard[i][1] = winningColor;
-      colorBoard[i][2] = winningColor;
+    if (board[i][0] == token.x &&
+        board[i][1] == token.x &&
+        board[i][2] == token.x) {
+      colorBoard[i][0] = true;
+      colorBoard[i][1] = true;
+      colorBoard[i][2] = true;
       return true;
     }
-    if (board[0][i] == xIcon && board[1][i] == xIcon && board[2][i] == xIcon) {
-      colorBoard[0][i] = winningColor;
-      colorBoard[1][i] = winningColor;
-      colorBoard[2][i] = winningColor;
+    if (board[0][i] == token.x &&
+        board[1][i] == token.x &&
+        board[2][i] == token.x) {
+      colorBoard[0][i] = true;
+      colorBoard[1][i] = true;
+      colorBoard[2][i] = true;
       return true;
     }
-    if (board[i][0] == oIcon && board[i][1] == oIcon && board[i][2] == oIcon) {
-      colorBoard[i][0] = winningColor;
-      colorBoard[i][1] = winningColor;
-      colorBoard[i][2] = winningColor;
+    if (board[i][0] == token.o &&
+        board[i][1] == token.o &&
+        board[i][2] == token.o) {
+      colorBoard[i][0] = true;
+      colorBoard[i][1] = true;
+      colorBoard[i][2] = true;
       return true;
     }
-    if (board[0][i] == oIcon && board[1][i] == oIcon && board[2][i] == oIcon) {
-      colorBoard[0][i] = winningColor;
-      colorBoard[1][i] = winningColor;
-      colorBoard[2][i] = winningColor;
+    if (board[0][i] == token.o &&
+        board[1][i] == token.o &&
+        board[2][i] == token.o) {
+      colorBoard[0][i] = true;
+      colorBoard[1][i] = true;
+      colorBoard[2][i] = true;
       return true;
     }
   }
-  if (board[0][0] == xIcon && board[1][1] == xIcon && board[2][2] == xIcon) {
-    colorBoard[0][0] = winningColor;
-    colorBoard[1][1] = winningColor;
-    colorBoard[2][2] = winningColor;
+  if (board[0][0] == token.x &&
+      board[1][1] == token.x &&
+      board[2][2] == token.x) {
+    colorBoard[0][0] = true;
+    colorBoard[1][1] = true;
+    colorBoard[2][2] = true;
     return true;
   }
-  if (board[0][2] == xIcon && board[1][1] == xIcon && board[2][0] == xIcon) {
-    colorBoard[0][2] = winningColor;
-    colorBoard[1][1] = winningColor;
-    colorBoard[2][0] = winningColor;
+  if (board[0][2] == token.x &&
+      board[1][1] == token.x &&
+      board[2][0] == token.x) {
+    colorBoard[0][2] = true;
+    colorBoard[1][1] = true;
+    colorBoard[2][0] = true;
     return true;
   }
-  if (board[0][0] == oIcon && board[1][1] == oIcon && board[2][2] == oIcon) {
-    colorBoard[0][0] = winningColor;
-    colorBoard[1][1] = winningColor;
-    colorBoard[2][2] = winningColor;
+  if (board[0][0] == token.o &&
+      board[1][1] == token.o &&
+      board[2][2] == token.o) {
+    colorBoard[0][0] = true;
+    colorBoard[1][1] = true;
+    colorBoard[2][2] = true;
     return true;
-  } else if (board[0][2] == oIcon &&
-      board[1][1] == oIcon &&
-      board[2][0] == oIcon) {
-    colorBoard[0][2] = winningColor;
-    colorBoard[1][1] = winningColor;
-    colorBoard[2][0] = winningColor;
+  }
+  if (board[0][2] == token.o &&
+      board[1][1] == token.o &&
+      board[2][0] == token.o) {
+    colorBoard[0][2] = true;
+    colorBoard[1][1] = true;
+    colorBoard[2][0] = true;
     return true;
   } else {
     return false;
