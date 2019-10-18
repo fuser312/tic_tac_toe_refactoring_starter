@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'gamelogic.dart';
+import 'logicClass.dart';
 
 //import 'package:flutter/animation.dart';
 
@@ -37,7 +38,7 @@ class _TicTacToePageState extends State<TicTacToePage> {
 
   Color getColor(int row, int col) {
     return colorBoard[row][col]
-        ? Colors.yellow.withOpacity(0.2)
+        ? Colors.red.withOpacity(0.2)
         : Colors.blue;
   }
 
@@ -86,7 +87,7 @@ class _TicTacToePageState extends State<TicTacToePage> {
         padding: EdgeInsets.all(10),
         decoration: BoxDecoration(
             image: DecorationImage(
-                image: AssetImage('assets/tictactoe02.jpg'), fit: BoxFit.cover)
+                image: AssetImage('assets/paper.jpg'), fit: BoxFit.cover)
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -99,7 +100,7 @@ class _TicTacToePageState extends State<TicTacToePage> {
                   "Tic-Tac-Toe",
                   style: TextStyle(
                       fontSize: 40,
-                      color: Colors.white,
+                      color: Color(0xFF848AC1),
                       fontFamily: 'Quicksand'),
                 ),
               ),
@@ -112,7 +113,7 @@ class _TicTacToePageState extends State<TicTacToePage> {
                   "$currentPlayer",
                   style: TextStyle(
                       fontSize: 24,
-                      color: Colors.white.withOpacity(0.6),
+                      color: Color(0xFF848AC1),
                       fontFamily: 'Quicksand'),
                 ),
               ),
@@ -140,7 +141,7 @@ class _TicTacToePageState extends State<TicTacToePage> {
                     flex: 1,
                   ),
                   Expanded(
-                    flex: 2,
+                    flex: 3,
                     child: SizedBox(
                       child: FlatButton(
                         color: Color(0xFF848AC1),
@@ -179,33 +180,3 @@ class _TicTacToePageState extends State<TicTacToePage> {
   }
 }
 
-class OneBox extends StatelessWidget {
-  final Widget buttonChild;
-  final Function onPressed;
-  final Color colors;
-  OneBox(
-      {this.buttonChild = const Text(''),
-        this.onPressed,
-        this.colors = Colors.white24});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      alignment: Alignment.center,
-      child: FlatButton(
-        child: AnimatedOpacity(
-            duration: Duration(milliseconds: 600),
-            opacity: buttonChild == null ? 0.0 : 1.0,
-            child: buttonChild),
-        onPressed: onPressed,
-      ),
-      margin: EdgeInsets.all(4),
-      decoration: BoxDecoration(
-        color: colors,
-        borderRadius: BorderRadius.all(
-          Radius.circular(16),
-        ),
-      ),
-    );
-  }
-}
