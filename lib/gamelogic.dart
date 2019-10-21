@@ -22,14 +22,14 @@ bool legitMove(token t) {
 }
 
 //default parameters
-String currentPlayer = 'Player X Move'; //X will always be player 1
+token currentPlayer = token.x; //X will always be player 1
 
 //function to change player based on currentPlayer value which is a string,
-changePlayer(String x) {
-  if (x == 'Player X Move') {
-    currentPlayer = 'Player O Move';
-  } else if (x == 'Player O Move') {
-    currentPlayer = 'Player X Move';
+changePlayer(token player) {
+  if (player == token.x) {
+    currentPlayer = token.o;
+  } else if (player == token.o) {
+    currentPlayer = token.x;
   }
 }
 
@@ -45,7 +45,7 @@ void gameReset() {
     [false, false, false],
     [false, false, false]
   ];
-  currentPlayer = 'Player X Move';
+  currentPlayer = token.x;
 }
 
 bool fullBoard(List<List<token>> board) {
@@ -128,4 +128,34 @@ bool winnerCheck(List<List<token>> board) {
   } else {
     return false;
   }
+}
+
+void changePlayerIfGameIsNotOver() {
+//    if (winnerCheck(board)) {
+////      currentPlayer = "${currentPlayer.substring(7, 9)} Won";
+//    } else if (fullBoard(board)) {
+////      currentPlayer = "draw";
+//    } else {
+//      changePlayer(currentPlayer);
+//    }
+  if (!winnerCheck(board) && !fullBoard(board)) {
+    changePlayer(currentPlayer);
+  }
+}
+
+String getCurretStatus() {
+  if (winnerCheck(board) && currentPlayer == token.x) {
+    return 'Player X won';
+  }
+  if (winnerCheck(board) && currentPlayer == token.o) {
+    return 'Player O won';
+  }
+  if (fullBoard(board)) {
+    return 'draw';
+  } else
+    return 'Player ${getCurrentPlayerName()} to move';
+}
+
+String getCurrentPlayerName() {
+  return currentPlayer == token.x ? 'X' : 'O';
 }

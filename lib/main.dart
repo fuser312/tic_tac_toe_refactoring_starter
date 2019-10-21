@@ -44,9 +44,9 @@ class _TicTacToePageState extends State<TicTacToePage> {
 
   void winnerPopup() {
     if (winnerCheck(board)) {
-      currentPlayer = "${currentPlayer.substring(7, 9)} Won";
+      //currentPlayer = "${currentPlayer.substring(7, 9)} Won";
     } else if (fullBoard(board)) {
-      currentPlayer = "draw";
+      //currentPlayer = "draw";
     } else {
       changePlayer(currentPlayer);
     }
@@ -170,7 +170,7 @@ class _TicTacToePageState extends State<TicTacToePage> {
 
   void updateBox(int r, int c) {
     if (legitMove(board[r][c])) {
-      if (currentPlayer == 'Player X Move') {
+      if (currentPlayer == token.x) {
         board[r][c] = token.x;
       } else {
         board[r][c] = token.o;
