@@ -9,22 +9,18 @@ List<List<token>> board = [
   [null, null, null]
 ];
 
-// initial list of colors assigned to boxes on board
 List<List<bool>> colorBoard = [
   [false, false, false],
   [false, false, false],
   [false, false, false]
 ];
 
-//  takes an icon, checks if
 bool legitMove(token t) {
   return t == null && !winnerCheck(board);
 }
 
-//default parameters
 token currentPlayer = token.x; //X will always be player 1
 
-//function to change player based on currentPlayer value which is a string,
 changePlayer(token player) {
   if (player == token.x) {
     currentPlayer = token.o;
@@ -33,7 +29,6 @@ changePlayer(token player) {
   }
 }
 
-//Color winningColor = Colors.yellow.withOpacity(0.2);
 void gameReset() {
   board = [
     [null, null, null],
@@ -131,19 +126,12 @@ bool winnerCheck(List<List<token>> board) {
 }
 
 void changePlayerIfGameIsNotOver() {
-//    if (winnerCheck(board)) {
-////      currentPlayer = "${currentPlayer.substring(7, 9)} Won";
-//    } else if (fullBoard(board)) {
-////      currentPlayer = "draw";
-//    } else {
-//      changePlayer(currentPlayer);
-//    }
   if (!winnerCheck(board) && !fullBoard(board)) {
     changePlayer(currentPlayer);
   }
 }
 
-String getCurretStatus() {
+String getCurrentStatus() {
   if (winnerCheck(board) && currentPlayer == token.x) {
     return 'Player X won';
   }

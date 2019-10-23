@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'gamelogic.dart';
 import 'logicClass.dart';
-
 //import 'package:flutter/animation.dart';
 
 void main() {
@@ -17,7 +16,11 @@ class TicTacToePage extends StatefulWidget {
   _TicTacToePageState createState() => _TicTacToePageState();
 }
 
-class _TicTacToePageState extends State<TicTacToePage> {
+bool changeWinningStatusColor = false;
+double endTweenValue = 1.0;
+
+class _TicTacToePageState extends State<TicTacToePage> with SingleTickerProviderStateMixin {
+  //AnimationController animationController;
   Widget getIcon(token t) {
     if (t == token.o) {
       return Icon(
@@ -80,6 +83,12 @@ class _TicTacToePageState extends State<TicTacToePage> {
   }
 
   @override
+  void initState() {
+
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xFFD6AA7C),
@@ -109,10 +118,10 @@ class _TicTacToePageState extends State<TicTacToePage> {
               flex: 1,
               child: Container(
                 alignment: Alignment.topCenter,
-                child: Text(
-                  "$currentPlayer",
+                child: winnerCheck(board)?AnimatedStatus():Text(
+                  getCurrentStatus(),
                   style: TextStyle(
-                      fontSize: 24,
+                      fontSize: 25,
                       color: Color(0xFF848AC1),
                       fontFamily: 'Quicksand'),
                 ),
@@ -166,6 +175,11 @@ class _TicTacToePageState extends State<TicTacToePage> {
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
   }
 
   void updateBox(int r, int c) {
